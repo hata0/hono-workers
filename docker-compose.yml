@@ -1,11 +1,14 @@
 volumes:
   db-data:
+    name: hono-tutorial_db-data
 
 services:
   app:
     build:
       context: .
       dockerfile: ./Dockerfile
+    image: hono-tutorial-app
+    container_name: hono-tutorial_app
     volumes:
       - .:/app
       - /app/node_modules
@@ -20,6 +23,8 @@ services:
       - db
   db:
     image: postgres:17.1-bookworm
+    container_name: hono-tutorial_db
+    hostname: db
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:

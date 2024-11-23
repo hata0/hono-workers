@@ -83,7 +83,7 @@ export class PostHandler {
       if (res.error instanceof Prisma.PrismaClientKnownRequestError && res.error.code === "P2025") {
         return c.json({ message: "record to update not found" }, 400);
       }
-      return c.json({ message: "unexpected error" }, 500);
+      return c.json({ message: "internal server error" }, 500);
     }
 
     return c.json({ task: res.value }, 200);
@@ -104,7 +104,7 @@ export class PostHandler {
       if (res.error instanceof Prisma.PrismaClientKnownRequestError && res.error.code === "P2025") {
         return c.json({ message: "record to delete does not exist" }, 400);
       }
-      return c.json({ message: "unexpected error" }, 500);
+      return c.json({ message: "internal server error" }, 500);
     }
 
     return c.json({ message: "success" }, 200);

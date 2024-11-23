@@ -5,7 +5,10 @@ const postApi = new Hono();
 
 const postHandler = new PostHandler();
 
-postApi.get("/:id", (c) => postHandler.get(c));
 postApi.get("/", (c) => postHandler.list(c));
+postApi.get("/:id", (c) => postHandler.get(c));
+postApi.post("/", (c) => postHandler.create(c));
+postApi.put("/:id", (c) => postHandler.update(c));
+postApi.delete("/:id", (c) => postHandler.delete(c));
 
 export { postApi };

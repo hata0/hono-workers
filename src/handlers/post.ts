@@ -57,4 +57,17 @@ export class PostHandler {
 
     return c.json({ message: "success" }, 200);
   }
+
+  async deleteMany(c: Context) {
+    const body = await c.req.json();
+
+    const prisma = new DBClient(c);
+    await prisma.post.deleteMany({
+      where: {
+        id: { in: body },
+      },
+    });
+
+    return c.json({ message: "success" }, 200);
+  }
 }

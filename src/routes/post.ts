@@ -10,5 +10,6 @@ postApi.get("/:id", (c) => postHandler.get(c));
 postApi.post("/", (c) => postHandler.create(c));
 postApi.put("/:id", (c) => postHandler.update(c));
 postApi.delete("/:id", (c) => postHandler.delete(c));
+postApi.delete("/", (c) => postHandler.deleteMany(c));
 
 export { postApi };

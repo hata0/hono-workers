@@ -7,12 +7,17 @@
     "fix": "biome check --fix --unsafe ."
   },
   "dependencies": {
-    "hono": "^4.6.11"
+    "@prisma/adapter-pg": "^5.22.0",
+    "@prisma/client": "^5.22.0",
+    "hono": "^4.6.11",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@types/pg": "^8.11.10",
     "lefthook": "^1.8.4",
+    "prisma": "^5.22.0",
     "typescript": "^5.6.3",
     "wrangler": "^3.88.0"
   },

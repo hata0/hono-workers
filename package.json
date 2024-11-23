@@ -10,6 +10,7 @@
     "@prisma/adapter-pg": "^5.22.0",
     "@prisma/client": "^5.22.0",
     "hono": "^4.6.11",
+    "neverthrow": "^8.1.1",
     "pg": "^8.13.1"
   },
   "devDependencies": {

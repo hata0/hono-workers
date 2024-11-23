@@ -1,9 +1,11 @@
 import { Hono } from "hono";
-import { getPostController, listPostController } from "../controllers/post";
+import { PostHandler } from "../handlers/post";
 
 const postApi = new Hono();
 
-postApi.get("/", (c) => listPostController(c));
-postApi.get("/:id", (c) => getPostController(c));
+const postHandler = new PostHandler();
+
+postApi.get("/:id", (c) => postHandler.get(c));
+postApi.get("/", (c) => postHandler.list(c));
 
 export { postApi };

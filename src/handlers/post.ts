@@ -3,10 +3,40 @@ import { DBClient } from "../client";
 
 export class PostHandler {
   async list(c: Context) {
-    const prisma = new DBClient(c);
-    const data = await prisma.post.findMany();
+    const { limit, page, sort } = await c.req.json();
 
-    return c.json(data, 200);
+    const prisma = new DBClient(c);
+
+    // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
+    let tasks;
+    if (sort === "latest") {
+      tasks = await prisma.post.findMany({
+        skip: limit * (page - 1),
+        take: limit,
+        orderBy: { createdAt: "desc" },
+      });
+    } else if (sort === "oldest") {
+      tasks = await prisma.post.findMany({
+        skip: limit * (page - 1),
+        take: limit,
+        orderBy: { createdAt: "asc" },
+      });
+    }
+
+    const totalCount = await prisma.post.count();
+    const totalPage = Math.ceil(totalCount / limit);
+
+    return c.json(
+      {
+        tasks,
+        pagination: {
+          currentPage: page,
+          totalPage,
+          totalCount,
+        },
+      },
+      200,
+    );
   }
 
   async get(c: Context) {

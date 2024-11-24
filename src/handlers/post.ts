@@ -10,15 +10,15 @@ export class PostHandler {
     const prisma = new DBClient(c);
 
     // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
-    let tasks;
+    let posts;
     if (sort === "oldest") {
-      tasks = await prisma.post.findMany({
+      posts = await prisma.post.findMany({
         skip: limit * (page - 1),
         take: limit,
         orderBy: { createdAt: "asc" },
       });
     } else {
-      tasks = await prisma.post.findMany({
+      posts = await prisma.post.findMany({
         skip: limit * (page - 1),
         take: limit,
         orderBy: { createdAt: "desc" },
@@ -30,7 +30,7 @@ export class PostHandler {
 
     return c.json(
       {
-        tasks,
+        posts,
         pagination: {
           currentPage: page,
           totalPage,
@@ -45,24 +45,24 @@ export class PostHandler {
     const id = c.req.param("id");
 
     const prisma = new DBClient(c);
-    const task = await prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
       where: {
         id,
       },
     });
 
-    return c.json({ task }, 200);
+    return c.json({ post }, 200);
   }
 
   async create(c: Context) {
     const body = await c.req.json();
 
     const prisma = new DBClient(c);
-    const task = await prisma.post.create({
+    const post = await prisma.post.create({
       data: body,
     });
 
-    return c.json({ task }, 200);
+    return c.json({ post }, 200);
   }
 
   async update(c: Context) {
@@ -86,7 +86,7 @@ export class PostHandler {
       return c.json({ message: "internal server error" }, 500);
     }
 
-    return c.json({ task: res.value }, 200);
+    return c.json({ post: res.value }, 200);
   }
 
   async delete(c: Context) {
